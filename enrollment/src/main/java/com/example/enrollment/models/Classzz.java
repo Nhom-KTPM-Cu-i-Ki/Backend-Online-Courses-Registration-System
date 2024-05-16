@@ -1,12 +1,18 @@
 package com.example.enrollment.models;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "classes")
-public class Class {
+@Builder
+public class Classzz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "class_id")
@@ -23,8 +29,6 @@ public class Class {
     private long roomId;
     @Column(name = "schedule_id",nullable = false)
     private long scheduleId;
-
     @OneToMany(mappedBy = "classId")
     private List<Enrollment> enrollments;
-
 }

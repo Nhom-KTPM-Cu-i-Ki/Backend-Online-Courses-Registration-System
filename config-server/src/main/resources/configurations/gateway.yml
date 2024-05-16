@@ -24,4 +24,12 @@ spring:
           uri: http://localhost:8092
           predicates:
             - Path=/api/v1/graduations/**
+        - id: enrollments
+          uri: http://localhost:8096
+          predicates:
+            - Path=/api/v1/enrollments/**
+        - id: class
+          uri: http://localhost:8096
+          predicates:
+            - Path=/api/v1/class/**
 

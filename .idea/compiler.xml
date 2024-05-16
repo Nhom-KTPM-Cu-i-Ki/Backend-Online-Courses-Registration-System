@@ -24,7 +24,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Graduation" options="-parameters" />
-      <module name="academicInformation" options="" />
+      <module name="academicInformation" options="-parameters" />
       <module name="authentication" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="course" options="-parameters" />
