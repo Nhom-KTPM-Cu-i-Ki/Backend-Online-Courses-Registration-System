@@ -1,0 +1,18 @@
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+server:
+  port: 8096
+spring:
+  application:
+    name: enrollment
+  datasource:
+    url: jdbc:mariadb://localhost:3306/enrollment?createDatabaseIfNotExist=True
+    username: root
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: update

@@ -1,0 +1,47 @@
+eureka:
+  client:
+    register-with-eureka: false
+server:
+  port: 8222
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: students
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/v1/students/**
+        - id: schools
+          uri: http://localhost:8070
+          predicates:
+            - Path=/api/v1/schools/**
+        - id: graduations
+          uri: http://localhost:8092
+          predicates:
+            - Path=/api/v1/graduations/**
+        - id: course
+          uri: http://localhost:8095
+          predicates:
+            - Path=/api/v1/courses/**
+        - id: academy
+          uri: http://localhost:8094
+          predicates:
+            - Path=/api/v1/academy/**
+        - id: class
+          uri: http://localhost:8096
+          predicates:
+            - Path=/api/v1/class/**
+        - id: enrollments
+          uri: http://localhost:8096
+          predicates:
+            - Path=/api/v1/enrollments/**
+        - id: schedule
+          uri: http://localhost:8091
+          predicates:
+            - Path=/api/v1/schedule/**
+
