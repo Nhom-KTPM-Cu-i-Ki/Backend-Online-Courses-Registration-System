@@ -1,6 +1,6 @@
 package com.example.enrollment.controllers;
 
-import com.example.enrollment.DTO.EnrollmentDTO;
+import com.example.enrollment.dto.EnrollmentDTO;
 import com.example.enrollment.models.Enrollment;
 import com.example.enrollment.services.EnrollmentService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EnrollmentController {
     private final EnrollmentService service;
+
 
     @PostMapping
     public  ResponseEntity<?> responseEntity(@RequestBody EnrollmentDTO enrollmentDTO){
@@ -44,10 +45,10 @@ public class EnrollmentController {
         }
     }
     @PutMapping("/{id}")
-    public  ResponseEntity<?> responseEntity(@PathVariable("id") long id, @RequestBody Enrollment updateErm){
+    public  ResponseEntity<?> responseEntity(@PathVariable("id") long id, @RequestBody EnrollmentDTO enrollmentDTO){
         try {
-             Enrollment enrollment=service.updateEnrollment(id,updateErm);
-            return ResponseEntity.ok(enrollment);
+             Enrollment enrollment=service.updateEnrollment(id,enrollmentDTO);
+            return ResponseEntity.ok("update thanh cong");
         }catch (Exception e){
             return  ResponseEntity.badRequest().body("update khong thanh cong");
         }

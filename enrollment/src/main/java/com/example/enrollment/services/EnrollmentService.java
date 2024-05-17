@@ -1,6 +1,6 @@
 package com.example.enrollment.services;
 
-import com.example.enrollment.DTO.EnrollmentDTO;
+import com.example.enrollment.dto.EnrollmentDTO;
 import com.example.enrollment.models.Classzz;
 import com.example.enrollment.models.Enrollment;
 import com.example.enrollment.repositories.EnrollmentRepository;
@@ -39,42 +39,35 @@ public class EnrollmentService {
         return repository.findById(id);
     }
 
-//    public Enrollment updateEnrollment(long id, Enrollment updateErm){
-//
-//        Enrollment enrollment = repository.findById(id)
-//                .orElseThrow(() -> new EntityNotFoundException("Enrollment not found"));
-//        Classzz classzz = classService.findById(enrollment.getClassId().getClassId()).orElse(null);
-//        if(enrollment != null){
-//            enrollment.setClassId(classzz);
-//            enrollment.setRegistrationDate(updateErm.getRegistrationDate());
-//            enrollment.setConfirmedDate(updateErm.getConfirmedDate());
-//            enrollment.setStatus(updateErm.getStatus());
-//            enrollment.setNotes(updateErm.getNotes());
-//            return repository.save(enrollment);
-//        }else {
-//            throw  new EntityNotFoundException("not found");
-//        }
-//    }
-public Enrollment updateEnrollment(long id, Enrollment updateErm) {
-    // Tìm kiếm enrollment cần cập nhật
-    Optional<Enrollment> optionalEnrollment = repository.findById(id);
-    if (optionalEnrollment.isPresent()) {
-        Enrollment enrollment = optionalEnrollment.get();
+public Enrollment updateEnrollment(long id, EnrollmentDTO updateDTO) {
+    Enrollment enrollment = repository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Enrollment not found"));
 
-        // Cập nhật thông tin từ updateErm
-        enrollment.setRegistrationDate(updateErm.getRegistrationDate());
-        enrollment.setConfirmedDate(updateErm.getConfirmedDate());
-        enrollment.setStatus(updateErm.getStatus());
-        enrollment.setCreditEarned(updateErm.getCreditEarned());
-        enrollment.setTuitionFee(updateErm.getTuitionFee());
-        enrollment.setNotes(updateErm.getNotes());
-
-        // Lưu cập nhật vào cơ sở dữ liệu và trả về enrollment đã được cập nhật
-        return repository.save(enrollment);
-    } else {
-        // Nếu không tìm thấy enrollment, ném ra ngoại lệ EntityNotFoundException
-        throw new EntityNotFoundException("Enrollment with id " + id + " not found");
+    if (updateDTO.getRegistrationDate() != null) {
+        enrollment.setRegistrationDate(updateDTO.getRegistrationDate());
     }
+    if (updateDTO.getConfirmedDate() != null) {
+        enrollment.setConfirmedDate(updateDTO.getConfirmedDate());
+    }
+    if (updateDTO.getStatus() != null) {
+        enrollment.setStatus(updateDTO.getStatus());
+    }
+    if (updateDTO.getCreditEarned() != null) {
+        enrollment.setCreditEarned(updateDTO.getCreditEarned());
+    }
+    if (updateDTO.getTuitionFee() != null) {
+        enrollment.setTuitionFee(updateDTO.getTuitionFee());
+    }
+    if (updateDTO.getNotes() != null) {
+        enrollment.setNotes(updateDTO.getNotes());
+    }
+    if (updateDTO.getClassId() != null) {
+        Classzz classzz = classService.findById(updateDTO.getClassId())
+                .orElseThrow(() -> new EntityNotFoundException("Class not found"));
+        enrollment.setClassId(classzz);
+    }
+
+    return repository.save(enrollment);
 }
 
     public void deleteErm(long id){
