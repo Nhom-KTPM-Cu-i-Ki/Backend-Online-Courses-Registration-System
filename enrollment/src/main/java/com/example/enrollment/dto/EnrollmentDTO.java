@@ -1,4 +1,4 @@
-package com.example.enrollment.DTO;
+package com.example.enrollment.dto;
 
 import com.example.enrollment.enums.Status;
 import lombok.Builder;
@@ -9,13 +9,13 @@ import java.time.LocalDate;
 @Data
 @Builder
 public class EnrollmentDTO {
-    private long enrollmentId;
-    private long studentId;
-    private int classId;
+    private Long enrollmentId;
+    private Long studentId;
+    private Long classId;
     private LocalDate registrationDate;
-    private Status status ;
+    private Status status;
     private LocalDate confirmedDate;
-    private int creditEarned;
-    private double tuitionFee;
+    private Integer creditEarned;
+    private Double tuitionFee;
     private String notes;
 }

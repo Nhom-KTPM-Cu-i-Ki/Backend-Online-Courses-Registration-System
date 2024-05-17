@@ -1,4 +1,4 @@
-package com.example.enrollment.DTO;
+package com.example.enrollment.dto;
 
 import lombok.Builder;
 import lombok.Data;
