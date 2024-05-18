@@ -27,6 +27,8 @@ public class CourseController {
         return service.findCourse(id).get();
     }
 
+    @GetMapping("/all")
+    public List<Course> allCourses(){return service.findAll();}
     @GetMapping("/name/{id}")
     public List<String> getCourseName(@PathVariable("id") long id){
         return service.getCourseName(id);

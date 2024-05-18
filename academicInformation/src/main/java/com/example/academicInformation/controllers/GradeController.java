@@ -1,5 +1,7 @@
 package com.example.academicInformation.controllers;
 
+import com.example.academicInformation.dto.CourseDto;
+import com.example.academicInformation.dto.GradeDto;
 import com.example.academicInformation.models.Grade;
 import com.example.academicInformation.services.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +21,8 @@ public class GradeController {
     public Grade findGradeByStudentAndCourse(@PathVariable("sid") long studentId,@PathVariable("cid") long courseId){
         return (Grade) service.getGradesByStudentAndCourse(studentId,courseId);
     }
-
-    @GetMapping("/test/{id}")
-    public String home(@PathVariable("id") long id){
+    @GetMapping("/student/{id}")
+    public List<GradeDto> test(@PathVariable("id") long id){
         return service.callCourseService(id);
     }
 

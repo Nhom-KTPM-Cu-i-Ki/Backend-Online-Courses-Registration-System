@@ -30,6 +30,6 @@ public class Student {
     @Column(name = "graduation_status",nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private Status graduationStatus;
-    @OneToMany(mappedBy = "student")
-    private List<Grade> grades;
+//    @OneToMany(mappedBy = "student")
+//    private List<Grade> grades;
 }

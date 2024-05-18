@@ -1,9 +1,12 @@
 package com.example.academicInformation.services;
 
+import com.example.academicInformation.dto.CourseDto;
+import com.example.academicInformation.dto.GradeDto;
 import com.example.academicInformation.models.Grade;
 import com.example.academicInformation.repositories.GradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,21 +41,28 @@ public class GradeService {
     public List<Grade> getGradesByStudentAndCourse(long studentId,long courseId){
         return repository.findByStudent_StudentIdAndCourseId(studentId,courseId);
     }
-    public String callCourseService(long id) {
+    public List<GradeDto> callCourseService(long id) {
+        List<Grade> grades = repository.findByStudent_StudentId(id);
+        List<GradeDto> result = new ArrayList<>();
         HttpHeaders headers = new HttpHeaders();
-
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-
-        ResponseEntity<String> response = restTemplate.exchange(
-                "http://localhost:8095/api/v1/courses/department_id/{id]}",
+        HttpEntity<List<CourseDto>> entity = new HttpEntity<>(headers);
+        ResponseEntity<List<CourseDto>> response = restTemplate.exchange(
+                "http://localhost:8222/api/v1/courses/all",
                 HttpMethod.GET,
                 entity,
-                String.class,
-                id);
+                new ParameterizedTypeReference<List<CourseDto>>() {} // Correct type for list
+        );
+        List<CourseDto> allCourses = response.getBody(); // Get list of courses
+        for(CourseDto c : allCourses){
+            for (Grade g : grades){
+                if(c.getCourseId()==g.getCourseId()){
+                    result.add(new GradeDto(g.getGradeId(),g.getStudent(),c,g.getRegular(),g.getMid(),g.getFinalOfTerm(),g.getTotal()));
+                }
+            }
+        }
 
-        String responseBody = response.getBody();
-        System.out.println(responseBody);
-        return responseBody;
+        System.out.println(allCourses);
+        return result;
     }
     public String findCourseRequire(long courseId,long studentId){
         return repository.findCourseByCourse(courseId,studentId);

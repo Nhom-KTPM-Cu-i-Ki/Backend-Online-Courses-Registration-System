@@ -3,11 +3,17 @@ package com.example.enrollment.models;
 
 import com.example.enrollment.enums.Status;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
 @Table
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Enrollment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +23,7 @@ public class Enrollment {
     private long studentId;
     @ManyToOne
     @JoinColumn(name = "class_id",nullable = false)
-    private Class classId;
+    private Classzz classId;
     @Column(name = "registration_date",nullable = false)
     private LocalDate registrationDate;
     @Column(name = "status",nullable = false)
