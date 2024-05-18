@@ -1,5 +1,6 @@
 package com.example.enrollment.models;
 
+import com.example.enrollment.enums.ClasszzType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,10 +26,11 @@ public class Classzz {
     private int maxStudents;
     @Column(name = "instructor",nullable = false)
     private String instructor;
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ClasszzType status;
     @Column(name = "room_id",nullable = false)
     private long roomId;
     @Column(name = "schedule_id",nullable = false)
     private long scheduleId;
-    @OneToMany(mappedBy = "classId")
-    private List<Enrollment> enrollments;
 }

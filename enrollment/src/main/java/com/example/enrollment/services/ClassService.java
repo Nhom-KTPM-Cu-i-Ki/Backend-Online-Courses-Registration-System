@@ -1,7 +1,10 @@
 package com.example.enrollment.services;
 
+import com.example.enrollment.dto.ClassDTO;
 import com.example.enrollment.models.Classzz;
+import com.example.enrollment.models.Enrollment;
 import com.example.enrollment.repositories.ClassRepository;
+import com.example.enrollment.repositories.EnrollmentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ClassService {
     private  final ClassRepository repository;
+    private  final EnrollmentRepository enrollmentRepository;
 
     public void saveClass(Classzz classs){
         repository.save(classs);
@@ -33,13 +37,31 @@ public class ClassService {
         if(classzz1 != null){
             classzz1.setSemester(classzz.getSemester());
             classzz1.setMaxStudents(classzz.getMaxStudents());
+            classzz1.setStatus(classzz.getStatus());
             classzz1.setInstructor(classzz.getInstructor());
             return repository.save(classzz1);
         }else {
             throw new EntityNotFoundException("id not found");
         }
     }
-//    public Classzz findByIdEnrollment(long id){
-//
-//    }
+    public ClassDTO calculateClassSummary(long classId) {
+        List<Enrollment> enrollments = enrollmentRepository.findByClassId_ClassId(classId);
+        int totalEnrollments = enrollments.size();
+        int totalCredits = 0;
+        double totalTuition = 0.0;
+
+        // Duyệt qua từng enrollment để tính tổng credits và tuition
+        for (Enrollment enrollment : enrollments) {
+            totalCredits += enrollment.getCreditEarned(); // Giả sử mỗi enrollment lưu số credits đã earn
+            totalTuition += enrollment.getTuitionFee();   // Tổng học phí
+        }
+        ClassDTO classDTO =  ClassDTO.builder()
+                .classId(classId)                        // Sử dụng đúng classId được truyền vào
+                .totalEnrollments(totalEnrollments)
+                .totalCredits(totalCredits)
+                .totalTuition(totalTuition)
+                .build();
+
+        return classDTO;
+    }
 }

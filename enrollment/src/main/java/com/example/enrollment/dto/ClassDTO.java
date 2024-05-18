@@ -6,11 +6,8 @@ import lombok.Data;
 @Data
 @Builder
 public class ClassDTO {
-    private long classId;
-    private long courseId;
-    private String semester;
-    private int maxStudents;
-    private String instructor;
-    private long roomId;
-    private long scheduleId;
+    private Long classId;
+    private int totalEnrollments;
+    private int totalCredits;
+    private double totalTuition;
 }

@@ -1,5 +1,6 @@
 package com.example.enrollment.controllers;
 
+import com.example.enrollment.dto.ClassDTO;
 import com.example.enrollment.models.Classzz;
 import com.example.enrollment.services.ClassService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/class")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class ClassController {
     private final ClassService service;
 
@@ -49,6 +51,16 @@ public class ClassController {
             return  ResponseEntity.ok("xoa thanh cong");
         }catch (Exception e){
             return ResponseEntity.badRequest().body("Xoa khong thanh cong");
+        }
+    }
+
+    @GetMapping("/{classId}/summary")
+    public ResponseEntity<?> getClassSummary(@PathVariable("classId") long classId) {
+        try {
+            ClassDTO classSummary = service.calculateClassSummary(classId);
+            return ResponseEntity.ok(classSummary);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error while calculating class summary: " + e.getMessage());
         }
     }
 
