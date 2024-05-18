@@ -32,4 +32,10 @@ spring:
           uri: http://localhost:8096
           predicates:
             - Path=/api/v1/class/**
+        - id: auth
+          uri: http://localhost:8093
+          predicates:
+            - Path=/api/v1/auth/**
+
+
 

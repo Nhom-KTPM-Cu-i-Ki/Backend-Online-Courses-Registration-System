@@ -16,7 +16,7 @@ spring:
     password: 1007
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 application:
   config:
     student-url: http://localhost:8222/api/v1/students
