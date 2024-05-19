@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/class")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+
 public class ClassController {
     private final ClassService service;
 
@@ -28,7 +28,7 @@ public class ClassController {
     @GetMapping
     public  ResponseEntity<?> responseEntity(){
         try {
-            List<Classzz> Lists = service.findAll();
+            List<ClassDTO> Lists = service.findAll();
             return ResponseEntity.ok(Lists);
         }catch (Exception e){
             return  ResponseEntity.badRequest().body("Lay du lieu khong thanh cong");
@@ -54,14 +54,14 @@ public class ClassController {
         }
     }
 
-    @GetMapping("/{classId}/summary")
-    public ResponseEntity<?> getClassSummary(@PathVariable("classId") long classId) {
-        try {
-            ClassDTO classSummary = service.calculateClassSummary(classId);
-            return ResponseEntity.ok(classSummary);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error while calculating class summary: " + e.getMessage());
-        }
-    }
+//    @GetMapping("/{classId}/summary")
+//    public ResponseEntity<?> getClassSummary(@PathVariable("classId") long classId) {
+//        try {
+//            ClassDTO classSummary = service.calculateClassSummary(classId);
+//            return ResponseEntity.ok(classSummary);
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("Error while calculating class summary: " + e.getMessage());
+//        }
+//    }
 
 }
