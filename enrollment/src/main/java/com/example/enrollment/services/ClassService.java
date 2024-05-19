@@ -9,6 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +26,8 @@ public class ClassService {
     public Optional<Classzz> findById(long id){
         return  repository.findById(id);
     }
-    public List<Classzz> findAll(){
-        return repository.findAll();
+    public List<ClassDTO> findAll() {
+        return repository.findAllClassesWithNativeQuery();
     }
 
     public  void deleteClasszz(long id){
@@ -44,24 +45,5 @@ public class ClassService {
             throw new EntityNotFoundException("id not found");
         }
     }
-    public ClassDTO calculateClassSummary(long classId) {
-        List<Enrollment> enrollments = enrollmentRepository.findByClassId_ClassId(classId);
-        int totalEnrollments = enrollments.size();
-        int totalCredits = 0;
-        double totalTuition = 0.0;
 
-        // Duyệt qua từng enrollment để tính tổng credits và tuition
-        for (Enrollment enrollment : enrollments) {
-            totalCredits += enrollment.getCreditEarned(); // Giả sử mỗi enrollment lưu số credits đã earn
-            totalTuition += enrollment.getTuitionFee();   // Tổng học phí
-        }
-        ClassDTO classDTO =  ClassDTO.builder()
-                .classId(classId)                        // Sử dụng đúng classId được truyền vào
-                .totalEnrollments(totalEnrollments)
-                .totalCredits(totalCredits)
-                .totalTuition(totalTuition)
-                .build();
-
-        return classDTO;
-    }
 }

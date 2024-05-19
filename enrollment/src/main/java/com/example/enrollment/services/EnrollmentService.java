@@ -10,6 +10,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,11 +35,11 @@ public class EnrollmentService {
                 Enrollment enrollment = Enrollment.builder()
                         .studentId(enrollmentDTO.getStudentId())
                         .classId(classzz)
-                        .registrationDate(enrollmentDTO.getRegistrationDate())
+                        .registrationDate(enrollmentDTO.getRegistrationDate()!= null ? enrollmentDTO.getRegistrationDate() : LocalDate.now())
                         .status(Status.PENDING)
-                        .confirmedDate(enrollmentDTO.getConfirmedDate())
-                        .creditEarned(enrollmentDTO.getCreditEarned())
-                        .tuitionFee(enrollmentDTO.getTuitionFee())
+                        .confirmedDate(enrollmentDTO.getConfirmedDate() != null ? enrollmentDTO.getConfirmedDate() : LocalDate.now())
+                        .creditEarned(enrollmentDTO.getCreditEarned()!=0?enrollmentDTO.getCreditEarned():0)
+                        .tuitionFee(enrollmentDTO.getTuitionFee()!=0.1?enrollmentDTO.getTuitionFee():0.1)
                         .notes(enrollmentDTO.getNotes())
                         .build();
                 repository.save(enrollment);
