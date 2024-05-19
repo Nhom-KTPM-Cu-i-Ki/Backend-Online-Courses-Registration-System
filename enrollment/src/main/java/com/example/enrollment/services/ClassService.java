@@ -54,28 +54,28 @@ public class ClassService {
         }
     }
 
-    public List<CourseDTO> callCourseService(long id) {
-        List<Classzz> classzzes = repository.findByStudentId(id);
-        List<CourseDTO> result = new ArrayList<>();
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<List<CourseDTO>> entity = new HttpEntity<>(headers);
-        ResponseEntity<List<CourseDTO>> response = restTemplate.exchange(
-                "http://localhost:8222/api/v1/courses/all",
-                HttpMethod.GET,
-                entity,
-                new ParameterizedTypeReference<List<CourseDTO>>() {} // Correct type for list
-        );
-        List<CourseDTO> allCourses = response.getBody(); // Get list of courses
-        for(CourseDTO c : allCourses){
-            for (Classzz cl : classzzes){
-                if(c.getCourseId()==cl.getCourseId()){
-//                    result.add(new ClassDTO(cl.getClassId(), cl.getCourseId());
-                }
-            }
-        }
-
-        System.out.println(allCourses);
-        return result;
-    }
+//    public List<CourseDTO> callCourseService(long id) {
+//        List<Classzz> classzzes = repository.findByStudentId(id);
+//        List<CourseDTO> result = new ArrayList<>();
+//        HttpHeaders headers = new HttpHeaders();
+//        HttpEntity<List<CourseDTO>> entity = new HttpEntity<>(headers);
+//        ResponseEntity<List<CourseDTO>> response = restTemplate.exchange(
+//                "http://localhost:8222/api/v1/courses/all",
+//                HttpMethod.GET,
+//                entity,
+//                new ParameterizedTypeReference<List<CourseDTO>>() {} // Correct type for list
+//        );
+//        List<CourseDTO> allCourses = response.getBody(); // Get list of courses
+//        for(CourseDTO c : allCourses){
+//            for (Classzz cl : classzzes){
+//                if(c.getCourseId()==cl.getCourseId()){
+////                    result.add(new ClassDTO(cl.getClassId(), cl.getCourseId());
+//                }
+//            }
+//        }
+//
+//        System.out.println(allCourses);
+//        return result;
+//    }
 
 }

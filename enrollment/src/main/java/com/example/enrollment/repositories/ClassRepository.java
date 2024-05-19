@@ -11,5 +11,5 @@ public interface ClassRepository extends JpaRepository<Classzz,Long> {
     @Query(name = "Classzz.findAllClassesWithEnrollmentCount", nativeQuery = true)
     List<ClassDTO> findAllClassesWithNativeQuery();
 
-    List<Classzz> findByStudentId(long id);
+//    List<Classzz> findByStudentId(long id);
 }
