@@ -2,6 +2,7 @@ package com.example.enrollment.models;
 
 
 import com.example.enrollment.enums.Status;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +19,6 @@ public class Enrollment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long enrollmentId;
-
     @Column(name = "student_id",nullable = false)
     private long studentId;
     @ManyToOne(cascade = CascadeType.MERGE)

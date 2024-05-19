@@ -28,18 +28,19 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Graduation" options="-parameters" />
-      <module name="academicInformation" options="-parameters" />
-      <module name="authentication" options="-parameters" />
+      <module name="Graduation" options="" />
+      <module name="academicInformation" options="" />
+      <module name="authentication" options="" />
       <module name="config-server" options="-parameters" />
       <module name="course" options="-parameters" />
       <module name="discovery" options="-parameters" />
       <module name="enrollment" options="-parameters" />
       <module name="gateway" options="-parameters" />
-      <module name="schedule" options="-parameters" />
+      <module name="schedule" options="" />
       <module name="school" options="-parameters" />
       <module name="student" options="-parameters" />
       <module name="userservice" options="-parameters" />
+      <module name="student" options="" />
     </option>
   </component>
 </project>
