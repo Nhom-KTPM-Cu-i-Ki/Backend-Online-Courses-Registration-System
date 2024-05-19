@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/enrollments")
 @RequiredArgsConstructor
-
+@CrossOrigin(origins = "http://localhost:3000")
 public class EnrollmentController {
     private final EnrollmentService service;
 
@@ -42,6 +42,15 @@ public class EnrollmentController {
         try {
             Enrollment enrollment = service.findById(id).orElseThrow(null);
             return  ResponseEntity.ok(enrollment);
+        }catch (Exception e){
+            return ResponseEntity.ok().body("lay du lieu khong thanh cong");
+        }
+    }
+    @GetMapping("/studentId/{id}")
+    public ResponseEntity<?> findByStundentId(@PathVariable("id") long id){
+        try {
+            List<Enrollment> enrollments = service.findByStudentId(id);
+            return  ResponseEntity.ok(enrollments);
         }catch (Exception e){
             return ResponseEntity.ok().body("lay du lieu khong thanh cong");
         }

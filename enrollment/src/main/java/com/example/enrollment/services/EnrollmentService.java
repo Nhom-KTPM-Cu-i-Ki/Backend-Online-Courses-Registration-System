@@ -1,5 +1,6 @@
 package com.example.enrollment.services;
 
+import com.example.enrollment.dto.CourseDTO;
 import com.example.enrollment.dto.EnrollmentDTO;
 import com.example.enrollment.enums.ClasszzType;
 import com.example.enrollment.enums.Status;
@@ -8,9 +9,13 @@ import com.example.enrollment.models.Enrollment;
 import com.example.enrollment.repositories.EnrollmentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.http.HttpHeaders;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,5 +120,9 @@ public Enrollment updateEnrollment(long id, EnrollmentDTO updateDTO) {
     public boolean canEnroll(long studentId, String semester, int creditsToAdd) {
         int totalCredits = calculateTotalCreditsForSemester(studentId, semester);
         return totalCredits + creditsToAdd <= 30;
+    }
+
+    public List<Enrollment> findByStudentId(long id) {
+        return repository.findByStudentId(id);
     }
 }

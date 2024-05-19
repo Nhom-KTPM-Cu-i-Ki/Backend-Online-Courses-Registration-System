@@ -16,16 +16,4 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-  cloud:
-    gateway:
-      globalCors:
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: "*"
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-            allowedHeaders:
-              - "*"
+
